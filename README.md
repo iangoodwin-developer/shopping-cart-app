@@ -13,7 +13,7 @@ My focus for the solution was to create a shopping cart application which allows
 
 I also wanted to have the application state be persisted in the browser storage, in order to mimic a shopping cart for a real shop. The use of browser storage is useful for scenarios where a user is shopping but is not logged in with a user. In the case of this application, the state is managed using a redux / flux pattern. This pattern uses the concept of actions to change application shared data, helping to have state management in one place. Actions can be associated with effects (like side-effects) which can be services such as browser storage, session storage or database storage.
 
-What I DID NOT place particular focus in this solution was the design of the layout. I did not attempt to make a realistic shop. So this project is not a particularly good example of styling or branding. 
+Where I DID NOT place particular focus in this solution was the design of the layout. I did not attempt to make a realistic shop. So this project is not a particularly good example of styling or branding. 
 
 # Angular shopping cart app
 
