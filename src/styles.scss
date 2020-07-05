@@ -1,0 +1,63 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import './assets/fonts/fonts';
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$custom-typography: mat-typography-config(
+  $font-family: 'Galano-Grotesque-SemiBold',
+  $body-1: mat-typography-level(16px, 24px, 500),
+  $display-4:
+    mat-typography-level(1.5rem, 2rem, 500, 'Galano-Grotesque-Semibold'),
+);
+
+@include mat-core($custom-typography);
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+.item-quantity {
+  display: flex;
+  flex-direction: column;
+  &__value {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.shop-items {
+  &__item {
+    min-width: 64px;
+  }
+}
+
+.mat-chip.mat-standard-chip {
+  cursor: pointer;
+}
+
+button {
+  &.mat-button-base {
+    &.mat-mini-fab {
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.empty-cart {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  &__message {
+  }
+}

@@ -1,0 +1,42 @@
+<ng-container *ngFor="let item of items | myfilter">
+  <mat-grid-list cols="3" rowHeight="2:1">
+    <mat-grid-tile><mat-icon>{{ item.icon }}</mat-icon></mat-grid-tile>
+    <mat-grid-tile>
+      <div class="item-price">{{item.calculatedPrice}}</div>
+    </mat-grid-tile>
+    <mat-grid-tile
+      ><div class="item-quantity">
+        <button
+          class="item-quantity__button"
+          mat-button
+          (click)="changeAmountByOne(item, true)"
+          type="button"
+        >
+          <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+
+        <div class="item-quantity__value">
+          <input
+            matInput
+            type="number"
+            value="{{item.calculatedQuantity}}"
+            min="0"
+            max="100"
+            id="{{item.id}}"
+            [(ngModel)]="item.calculatedQuantity"
+            (change)="onCartItemChanged(item, $event)"
+          />
+        </div>
+        <button
+          class="item-quantity__button"
+          mat-button
+          (click)="changeAmountByOne(item, false)"
+          type="button"
+        >
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+      </div></mat-grid-tile
+    >
+  </mat-grid-list>
+  <mat-divider></mat-divider>
+</ng-container>

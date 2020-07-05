@@ -1,0 +1,58 @@
+<ng-container *ngIf="(carts | async) as shoppingCarts">
+  <mat-toolbar class="space-between"
+    >Shopping Carts
+    <span>
+      <span *ngIf="shoppingCarts.length == 0"
+        ><small>please add a new cart to begin &rarr;</small>
+      </span>
+      <button
+        matTooltip="Add cart"
+        color="primary"
+        mat-mini-fab
+        (click)="addCart(shoppingCarts.length + 1)"
+      >
+        <mat-icon>add</mat-icon></button
+      ><span class="cdk-visually-hidden">add shopping cart</span>
+    </span>
+  </mat-toolbar>
+  <ng-container *ngIf="shoppingCarts.length > 0">
+    <mat-grid-list
+      [cols]="(shoppingCarts.length < 4 ) ? shoppingCarts.length : 4"
+      rowHeight="100px"
+      gutterSize="5px"
+    >
+      <mat-grid-tile *ngFor="let cart of shoppingCarts">
+        <mat-chip-list>
+          <mat-chip
+            [matTooltipDisabled]="deleteMouseEnter == true"
+            #chipTooltip="matTooltip"
+            matTooltip="Open cart"
+            matTooltipPosition="below"
+            matBadgeColor="warn"
+            [matBadge]="cart.items.length"
+            [matBadgeHidden]="cart.items.length <= 0"
+            [routerLink]="[cart.cart.id]"
+            (click)="setDocTitle(cart.cart.name)"
+            color="primary"
+          >
+            <mat-chip-avatar>
+              <mat-icon>shopping_basket</mat-icon>
+            </mat-chip-avatar>
+            {{cart.cart.name}}
+
+            <mat-icon
+              (mouseenter)="chipTooltip.hide()"
+              (mouseleave)="chipTooltip.show()"
+              matChipRemove
+              matTooltip="Delete cart"
+              (click)="deleteCart(cart.cart.id)"
+              >cancel</mat-icon
+            >
+          </mat-chip>
+        </mat-chip-list>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <app-add-item></app-add-item>
+  </ng-container>
+</ng-container>

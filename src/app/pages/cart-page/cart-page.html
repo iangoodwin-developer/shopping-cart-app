@@ -1,0 +1,38 @@
+<ng-container *ngIf="(cart | async) as shoppingCart">
+  <mat-toolbar class="space-between"
+    ><a
+      mat-mini-fab
+      color="primary"
+      matTooltip="See all shopping carts"
+      (click)="setDocTitle('All shopping carts')"
+      routerLink="/"
+    >
+      <mat-icon>home</mat-icon></a
+    >
+
+    <mat-icon
+      matBadgeColor="warn"
+      [matBadge]="(items | async).length"
+      [matBadgeHidden]="(items | async).length <= 0"
+      >shopping_basket</mat-icon
+    >
+
+    <app-item-remove
+      [cart]="shoppingCart"
+      (click)="removeAllCartItems(shoppingCart.id)"
+    ></app-item-remove
+  ></mat-toolbar>
+  <ng-container *ngIf="(items  | async) as cartItems">
+    <ng-container *ngIf="cartItems.length > 0 else emptyCart">
+      <app-cart [items]="cartItems"></app-cart>
+    </ng-container>
+    <ng-template #emptyCart>
+      <div class="empty-cart">
+        <div class="empty-cart__message">
+          There are no items in your cart
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+  <app-add-item [currentCart]="shoppingCart"></app-add-item>
+</ng-container>

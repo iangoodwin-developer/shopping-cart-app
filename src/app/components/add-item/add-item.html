@@ -1,0 +1,58 @@
+<mat-toolbar class="shop-items space-between">
+  Products:
+  <ng-container *ngFor="let shopItem of shopItems">
+    <ng-container *ngIf="!currentCart else currentCartBlock">
+      <ng-container *ngIf="(carts | async) as shoppingCarts">
+        <ng-container *ngIf="shoppingCarts.length > 1 else singleCartBlock">
+          <div>
+            <button [matMenuTriggerFor]="menuItems" mat-button>
+              <mat-icon>{{shopItem.icon}}</mat-icon>
+            </button>
+            <mat-menu #menuItems="matMenu">
+              <button
+                color="primary"
+                *ngFor="let shoppingCart of shoppingCarts"
+                [matTooltip]="'Add ' + shopItem.description + ' to ' + shoppingCart.cart.name"
+                matTooltipPosition="right"
+                mat-menu-item
+                (click)="onAddNewItem(shopItem, shoppingCart.cart.id)"
+              >
+                {{shoppingCart.cart.name != "" ? shoppingCart.cart.name :
+                "untitled"}}
+                <ng-container *ngIf="currentCart?.id === shoppingCart.cart.id"
+                  ><mat-icon color="primary"
+                    >check_circle</mat-icon
+                  ></ng-container
+                >
+              </button>
+            </mat-menu>
+          </div>
+        </ng-container>
+        <ng-template #singleCartBlock>
+          <button
+            mat-button
+            [matTooltip]="'Add ' + shopItem.description + ' to ' + shoppingCarts[0].cart.name"
+            class="shop-items__item"
+            (click)="onAddNewItem(shopItem, shoppingCarts[0].cart.id)"
+          >
+            <mat-icon>
+              {{shopItem.icon}}
+            </mat-icon>
+          </button>
+        </ng-template>
+      </ng-container>
+    </ng-container>
+    <ng-template #currentCartBlock>
+      <button
+        mat-button
+        class="shop-items__item"
+        [matTooltip]="'Add ' + shopItem.description + ' to ' + currentCart.name"
+        (click)="onAddNewItem(shopItem, currentCart.id)"
+      >
+        <mat-icon>
+          {{shopItem.icon}}
+        </mat-icon>
+      </button>
+    </ng-template>
+  </ng-container>
+</mat-toolbar>
